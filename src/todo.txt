@@ -1,0 +1,17 @@
+X. write the circle tool
+X. implement tools 
+X. implement toolbar 
+X. get onclick for toolbar 
+    - if clicked in toolbar area
+    - then update tool in dataManager 
+
+X. write the z move up / down tool
+X. write the undo / redo tool 
+X. write the selection tool 
+X. write the drag tool 
+
+TODO: 
+- write the rest of the shapes
+- write shape resize
+- write eraser
+- add images to toolbar
