@@ -9,6 +9,7 @@
 
 #include "../tools/creators/brush.h"
 #include "../tools/creators/circle.h"
+#include "../tools/creators/triangle.h"
 #include "../tools/modifiers/drag.h"
 #include "../tools/modifiers/zMove.h"
 #include "../tools/modifiers/history.h"
@@ -20,7 +21,8 @@ class ClickManager {
     bool clickWasAction;
     
     Brush brush; 
-    Circle circle; 
+    Circle circle;
+    Triangle triangle;  
     Drag drag; 
     ZMove zmove; 
     History history; 

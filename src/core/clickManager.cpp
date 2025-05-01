@@ -56,7 +56,8 @@ void ClickManager::clickTool(int x, int y) {
     } else if (tool == RECTANGLE) {
 
     } else if (tool == TRIANGLE) {
-
+        triangle.beginTriangle(x, y);
+        dataManager.addDrawable(triangle.getDrawable()); 
     } else if (tool == POLYGON) {
 
     } else if (tool == ERASER) {
@@ -88,7 +89,8 @@ void ClickManager::motionTool(int x, int y) {
     } else if (tool == RECTANGLE) {
 
     } else if (tool == TRIANGLE) {
-
+        triangle.moveTriangle(x, y);
+        dataManager.updateDrawable(triangle.getDrawable()); 
     } else if (tool == POLYGON) {
         
     } else if (tool == ERASER) {

@@ -2,7 +2,7 @@
 #include <iostream>
 
 DataManager::DataManager() {
-    curTool = CIRCLE;
+    curTool = TRIANGLE;
     curAction = NONE; 
 
     curColor.r = 1.0f;

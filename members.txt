@@ -16,4 +16,4 @@ Maxwell Hu
 Github Repo Link
 --------------------
 
-[Github repo link]
+https://github.com/Hu-Maxwell/cse24proj
