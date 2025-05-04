@@ -3,11 +3,9 @@
 
 History::History(DataManager& dataManager_) : dataManager(&dataManager_) {}
 
-void History::Undo() {
-    std::cout << "undid" << std::endl; 
-
-    std::stack<std::vector<Drawable>>*  undoStack = dataManager->getUndoStack(); 
-    std::stack<std::vector<Drawable>>*  redoStack = dataManager->getRedoStack(); 
+void History::Undo() {   
+    std::stack<std::vector<Drawable>>* undoStack = dataManager->getUndoStack(); 
+    std::stack<std::vector<Drawable>>* redoStack = dataManager->getRedoStack(); 
     std::vector<Drawable>* drawables = dataManager->getDrawables(); 
 
     if (undoStack->empty()) return; 

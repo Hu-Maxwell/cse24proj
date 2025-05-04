@@ -1,12 +1,22 @@
 #include "triangle.h"
 #include <iostream>
 
+Triangle::Triangle(DataManager& dataManager_) : dataManager(&dataManager_) {}
+
 void Triangle::beginTriangle(int x, int y) {
     drawable = Drawable();     
     drawable.points.push_back({x, y});
 
     center.first = x; 
     center.second = y; 
+    
+    drawable.tool = TRIANGLE;
+    drawable.size = 5; 
+
+    drawable.center.first = center.first;
+    drawable.center.second = center.second;
+
+    drawable.color = dataManager->getCurColor(); 
 }
 
 void Triangle::moveTriangle(int x, int y) {

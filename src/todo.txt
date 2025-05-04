@@ -9,9 +9,30 @@ X. write the z move up / down tool
 X. write the undo / redo tool 
 X. write the selection tool 
 X. write the drag tool 
+X. write shape resize 
+X. add images to toolbar 
+X. write all the shapes
+X. move bottom
+X. write clear function
+X. color changer 
+X. fixed resize for rectangle
 
 TODO: 
-- write the rest of the shapes
-- write shape resize
-- write eraser
-- add images to toolbar
+- add last few icons
+- colors actually work on click
+
+- toolbar:
+1. pen
+2. eraser
+3. shape 1 
+4. shape 2 
+5. shape 3 
+6. shape 4
+7. clear
+8. drag
+9. resize
+10. select -> change color
+11. move to front 
+12. move to back
+13. undo 
+14. redo 

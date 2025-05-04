@@ -1,5 +1,5 @@
-#ifndef TRIANGLE_H
-#define TRIANGLE_H
+#ifndef TANG_H
+#define TANG_H
 
 #include "./../../utils/drawable.h"
 #include "../../core/dataManager.h"
@@ -8,17 +8,17 @@
 #include <vector>
 #include <utility> 
 
-class Triangle {
+class Tang {
     Drawable drawable; 
     std::pair<int, int> center; 
-
+    
     DataManager* dataManager;
 
 public:
-    Triangle(DataManager &dataManager_);
+    Tang(DataManager &dataManager_);
 
-    void beginTriangle(int x, int y);
-    void moveTriangle(int x, int y);
+    void beginCircle(int x, int y);
+    void moveCircle(int x, int y);
     Drawable getDrawable(); 
 };
 

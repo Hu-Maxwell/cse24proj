@@ -1,3 +1,3 @@
 struct Color {
-    int r, g, b; 
+    float r, g, b; 
 };

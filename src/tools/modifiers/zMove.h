@@ -11,7 +11,7 @@ public:
     ZMove(DataManager &dataManager_);
 
     void MoveTop(int x, int y);
-    void MoveButtom(int x, int y);
+    void MoveBottom(int x, int y);
 };
 
 #endif

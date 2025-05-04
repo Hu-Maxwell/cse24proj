@@ -1,5 +1,7 @@
 #include "selector.h"
 
+#include <iostream>
+
 void selector(DataManager* dataManager, int x, int y) {
     std::vector<Drawable>* drawables = dataManager->getDrawables(); 
     
@@ -11,7 +13,6 @@ void selector(DataManager* dataManager, int x, int y) {
                 (y > p.second - (d.size / 2.0) && y < p.second + (d.size / 2))) {
 
                 dataManager->setSelectedDrawable(&d); 
-
                 return; 
             } 
         }

@@ -2,10 +2,18 @@
 #include "dataManager.h"
 
 ClickManager::ClickManager(DataManager& dataManager_) : 
+    circle(dataManager_),
+    tang(dataManager_),
+    triangle(dataManager_),
+    polygon(dataManager_),
     dataManager(dataManager_), 
+    eraser(dataManager_),
+    clear(dataManager_),
     drag(dataManager_),
+    colorChange(dataManager_),
     zmove(dataManager_),
     history(dataManager_),
+    resize(dataManager_),
     clickBeganOnToolbar(false), 
     clickWasAction(false)
 {}
@@ -17,13 +25,11 @@ void ClickManager::onClick(int x, int y) {
         clickAction(x, y); 
         clickWasAction = true; 
     } else {
-        // temp put here
         dataManager.getUndoStack()->push(*dataManager.getDrawables());
 
         while(!dataManager.getRedoStack()->empty()) {
             dataManager.getRedoStack()->pop(); 
         } 
-        // temp put here
 
         clickTool(x, y); 
         clickWasAction = false; 
@@ -33,15 +39,13 @@ void ClickManager::onClick(int x, int y) {
 void ClickManager::clickAction(int x, int y) {
     ACTION action = dataManager.getCurAction();
 
-        
     if (action == UNDO) {
         history.Undo();  
     } else if (action == REDO) {
         history.Redo(); 
     } else if (action == CLEAR) { 
-
-    }
-    return; 
+        clear.clear(); 
+    } 
 }
 
 void ClickManager::clickTool(int x, int y) {
@@ -50,24 +54,33 @@ void ClickManager::clickTool(int x, int y) {
     if (tool == BRUSH) {
         brush.beginBrush(x, y);
         dataManager.addDrawable(brush.getDrawable()); 
+    } else if (tool == ERASER) {
+        eraser.erase(x, y); 
     } else if (tool == CIRCLE) {
         circle.beginCircle(x, y); 
         dataManager.addDrawable(circle.getDrawable()); 
-    } else if (tool == RECTANGLE) {
-
+    } else if (tool == TANG) {
+        tang.beginCircle(x, y); 
+        dataManager.addDrawable(tang.getDrawable()); 
     } else if (tool == TRIANGLE) {
         triangle.beginTriangle(x, y);
         dataManager.addDrawable(triangle.getDrawable()); 
     } else if (tool == POLYGON) {
-
-    } else if (tool == ERASER) {
-
+        polygon.beginPolygon(x, y);
+        dataManager.addDrawable(polygon.getDrawable());
     } else if (tool == DRAG) {
         if (clickBeganOnToolbar) { return; }
         drag.beginDrag(x, y);         
+    } else if (tool == RESIZE) {
+        resize.beginResize(x, y);
+    } else if (tool == COLORCHANGE) {
+        colorChange.colorChange(x, y); 
     } else if (tool == MOVETOP) {            
         zmove.MoveTop(x, y); 
-    }
+    } else if (tool == MOVEBOTTOM) {            
+        zmove.MoveBottom(x, y); 
+    } 
+
 } 
 
 void ClickManager::onMotion(int x, int y) {
@@ -86,17 +99,19 @@ void ClickManager::motionTool(int x, int y) {
     } else if (tool == CIRCLE) {
         circle.moveCircle(x, y); 
         dataManager.updateDrawable(circle.getDrawable()); 
-    } else if (tool == RECTANGLE) {
-
+    } else if (tool == TANG) {
+        tang.moveCircle(x, y); 
+        dataManager.updateDrawable(tang.getDrawable());
     } else if (tool == TRIANGLE) {
         triangle.moveTriangle(x, y);
         dataManager.updateDrawable(triangle.getDrawable()); 
     } else if (tool == POLYGON) {
-        
-    } else if (tool == ERASER) {
-
+        polygon.movePolygon(x, y);
+        dataManager.updateDrawable(polygon.getDrawable());
     } else if (tool == DRAG) {
         drag.moveDrag(x, y);
+    } else if (tool == RESIZE) {
+        resize.moveResize(x, y);
     }
 }
 
@@ -117,25 +132,75 @@ bool ClickManager::onToolbarClick(int x, int y) {
                     dataManager.setCurTool(BRUSH); 
                 } else if (i == 1) {
                     dataManager.setCurAction(NONE);
-                    dataManager.setCurTool(CIRCLE);
+                    dataManager.setCurTool(ERASER);
                 } else if (i == 2) { 
                     dataManager.setCurAction(NONE);
-                    dataManager.setCurTool(DRAG); 
+                    dataManager.setCurTool(CIRCLE); 
                 } else if (i == 3) {
                     dataManager.setCurAction(NONE);
-                    dataManager.setCurTool(MOVETOP);
+                    dataManager.setCurTool(TANG);
                 } else if (i == 4) {
-                    dataManager.setCurAction(UNDO);
+                    dataManager.setCurAction(NONE);
+                    dataManager.setCurTool(TRIANGLE);
                 } else if (i == 5) {
+                    dataManager.setCurAction(NONE);
+                    dataManager.setCurTool(POLYGON);
+                } else if (i == 6) {
+                    dataManager.setCurAction(CLEAR);
+                } else if (i == 7) {
+                    dataManager.setCurAction(NONE);
+                    dataManager.setCurTool(DRAG); 
+                } else if (i == 8) {
+                    dataManager.setCurAction(NONE);
+                    dataManager.setCurTool(RESIZE); 
+                } else if (i == 9) {
+                    dataManager.setCurAction(NONE);
+                    dataManager.setCurTool(COLORCHANGE);
+                } else if (i == 10) {
+                    dataManager.setCurAction(NONE);
+                    dataManager.setCurTool(MOVETOP);
+                } else if (i == 11) {
+                    dataManager.setCurAction(NONE);
+                    dataManager.setCurTool(MOVEBOTTOM);
+                } else if (i == 12) {
+                    dataManager.setCurAction(UNDO);
+                } else if (i == 13) {
                     dataManager.setCurAction(REDO);
-                }
+                } 
             }
         }
     }
 
     if (inBottomToolbar) {
-        // test for now
-        dataManager.setCurColor(0.0, 0.0, 1.0); 
+        int windowWidth = glutGet(GLUT_WINDOW_WIDTH);
+        int buttonHeight = glutGet(GLUT_WINDOW_HEIGHT) / dataManager.getButtonsY(); 
+
+        const int numColors = 7;    
+        const float colors[numColors][3] = {
+            {1.0f, 0.0f, 0.0f},   // red
+            {1.0f, 0.5f, 0.0f},   // orange
+            {1.0f, 1.0f, 0.0f},   // yellow
+            {0.0f, 1.0f, 0.0f},   // green
+            {0.0f, 0.0f, 1.0f},   // blue
+            {0.5f, 0.0f, 0.5f},   // purple
+            {0.0f, 0.0f, 0.0f}    // black
+        };
+
+        int colorButtonWidth = (windowWidth - dataManager.getToolbarWidth()) / numColors;
+        
+        for (int i = 0; i < numColors; i++) {
+            int xLeft = dataManager.getToolbarWidth() + i * colorButtonWidth;
+            int xRight = xLeft + colorButtonWidth;
+
+            if (x >= xLeft && x < xRight) {
+                float r = colors[i][0];
+                float g = colors[i][1];
+                float b = colors[i][2];
+
+                dataManager.setCurColor(r, g, b);
+                break;
+            }
+        }
     }
 
     return true; 

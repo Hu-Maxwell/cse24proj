@@ -10,8 +10,6 @@ void ZMove::MoveTop(int x, int y) {
 
     std::vector<Drawable>* drawables = dataManager->getDrawables(); 
 
-    std::cout << "start: " << drawable->zVal << std::endl;  
-
     // find top z
     Drawable* topDrawable = nullptr; 
     int topZ = 0; 
@@ -24,11 +22,30 @@ void ZMove::MoveTop(int x, int y) {
 
     // swap
     if (!topDrawable) { return; }
-    int temp = topDrawable->zVal;
-    topDrawable->zVal = drawable->zVal; 
-    drawable->zVal = temp; 
+    drawable->zVal = topZ + 1; 
 
-    std::cout << "end: " << drawable->zVal << std::endl;  
+    glutPostRedisplay();
+}
+
+void ZMove::MoveBottom(int x, int y) { 
+    selector(dataManager, x, y);
+    Drawable* drawable = dataManager->getSelectedDrawable(); 
+    if (!drawable) { return; }
+
+    std::vector<Drawable>* drawables = dataManager->getDrawables(); 
+
+    Drawable* bottomDrawable = nullptr; 
+    int bottomZ = 10000; 
+
+    for (auto& d : *drawables) {
+        if (d.zVal < bottomZ) {
+            bottomDrawable = &d; 
+            bottomZ = d.zVal; 
+        }
+    }
+
+    if (!bottomDrawable) { return; }
+    drawable->zVal = bottomZ - 1; 
 
     glutPostRedisplay();
 }

@@ -8,4 +8,8 @@ Drawable::Drawable() {
     int size = 5; 
 
     int zVal = 0; 
+
+    tool = NO; 
+    center.first = 0; 
+    center.second = 0;
 }

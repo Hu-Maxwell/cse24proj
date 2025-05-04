@@ -2,7 +2,7 @@
 #include <iostream>
 
 DataManager::DataManager() {
-    curTool = TRIANGLE;
+    curTool = BRUSH;
     curAction = NONE; 
 
     curColor.r = 1.0f;
@@ -13,10 +13,9 @@ DataManager::DataManager() {
     topZ = 0;
 
     // toolbar
-    toolbarWidth = 80; 
+    toolbarWidth = 28; 
     buttonsX = 7;
-    // brush + eraser + 4 shapes + drag + resize + zmovetop + zmovebottom + undo + redo 
-    buttonsY = 12;  
+    buttonsY = 14;  
     windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
     buttonHeight = windowHeight / buttonsX;
 }
@@ -67,6 +66,10 @@ TOOL DataManager::getCurTool() {
 
 ACTION DataManager::getCurAction() {
     return curAction; 
+}
+
+Color DataManager::getCurColor() {
+    return curColor; 
 }
 
 int DataManager::getToolbarWidth() {

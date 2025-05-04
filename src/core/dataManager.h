@@ -44,6 +44,7 @@ public:
     Renderer getRenderer(); 
     TOOL getCurTool(); 
     ACTION getCurAction(); 
+    Color getCurColor(); 
 
     int getToolbarWidth(); 
     int getButtonsX();

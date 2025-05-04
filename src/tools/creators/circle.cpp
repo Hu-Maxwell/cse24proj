@@ -1,12 +1,21 @@
 #include "circle.h"
-#include <iostream>
+
+Circle::Circle(DataManager& dataManager_) : dataManager(&dataManager_) {}
 
 void Circle::beginCircle(int x, int y) {
     drawable = Drawable();     
     drawable.points.push_back({x, y});
+    drawable.tool = CIRCLE; 
 
     center.first = x; 
     center.second = y; 
+
+    drawable.size = 5; 
+
+    drawable.center.first = center.first;
+    drawable.center.second = center.second; 
+
+    drawable.color = dataManager->getCurColor();
 }
 
 void Circle::moveCircle(int x, int y) {
