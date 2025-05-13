@@ -109,27 +109,27 @@ void Renderer::renderToolbar(int toolbarWidth, int buttonsX, int buttonsY) {
 
 void Renderer::renderIcons() {
     std::vector<const char*> paths = {
-        "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/pencil.png",
-        "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/eraser.png",
+        "assets/pencil.png",
+        "assets/eraser.png",
         
-        "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/circle.png",
-        "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/rectangle.png",
-        "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/triangle.png",
-        "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/polygon.png",
+        "assets/circle.png",
+        "assets/rectangle.png",
+        "assets/triangle.png",
+        "assets/polygon.png",
 
-        "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/clear.png",
-        "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/drag.png",
-        "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/resize.png", 
-        "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/color.png",
+        "assets/clear.png",
+        "assets/drag.png",
+        "assets/resize.png", 
+        "assets/color.png",
 
-        "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/bring-to-front.png",
-        "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/send-to-back.png",
+        "assets/bring-to-front.png",
+        "assets/send-to-back.png",
 
-        // "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/minus.png",
-        // "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/plus.png",
+        // "assets/minus.png",
+        // "assets/plus.png",
 
-        "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/undo.png",
-        "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/redo.png",
+        "assets/undo.png",
+        "assets/redo.png",
     };
 
     int windowWidth = glutGet(GLUT_WINDOW_WIDTH);
@@ -145,11 +145,11 @@ void Renderer::renderIcons() {
     int marginY = 0; 
 
     for (const char* path : paths) {
-        if (std::string(path) == "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/drag.png" || 
-            std::string(path) == "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/resize.png" ||
-            std::string(path) == "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/color.png" ||
-            std::string(path) == "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/undo.png" ||
-            std::string(path) == "/home/me/workspace/assignments/programming-project/programming-project-ex-1/assets/redo.png") {
+        if (std::string(path) == "assets/drag.png" || 
+            std::string(path) == "assets/resize.png" ||
+            std::string(path) == "assets/color.png" ||
+            std::string(path) == "assets/undo.png" ||
+            std::string(path) == "assets/redo.png") {
             scale = 1.05f;
         } else {
             scale = .25f;
