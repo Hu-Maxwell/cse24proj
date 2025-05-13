@@ -18,6 +18,7 @@ DataManager::DataManager() {
     buttonsY = 14;  
     windowHeight = glutGet(GLUT_WINDOW_HEIGHT);
     buttonHeight = windowHeight / buttonsX;
+    
 }
 
 void DataManager::addDrawable(Drawable drawable) {

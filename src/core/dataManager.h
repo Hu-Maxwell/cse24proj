@@ -56,6 +56,8 @@ public:
     void setCurTool(TOOL newTool);
     void setCurAction(ACTION newAction);
     void setCurColor(float r, float g, float b);  
+
+    int knobX; 
 };
 
 #endif
